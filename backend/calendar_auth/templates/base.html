@@ -1,0 +1,22 @@
+{% load django_vite %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <script type="module">
+        import RefreshRuntime from "/@react-refresh"
+        RefreshRuntime.injectIntoGlobalHook(window)
+        window.$RefreshReg$ = () => {}
+        window.$RefreshSig$ = () => (type) => type
+        window.__vite_plugin_react_preamble_installed__ = true
+   </script>
+    <head>
+        {% vite_asset 'src/main.tsx' %}
+        {% vite_hmr_client %}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Share calendar</title>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+</html>
