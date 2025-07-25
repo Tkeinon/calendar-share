@@ -5,6 +5,7 @@
     <script>
         document.cookie = "csrftoken={{ csrf_token }}; path=/";
     </script>
+    <link rel="icon" type="image/svg+xml" href="static/images/favicon.svg" />
     <head>
         {% vite_asset 'src/main.tsx' %}
         {% vite_hmr_client %}
