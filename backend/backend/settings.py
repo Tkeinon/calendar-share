@@ -72,6 +72,9 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 # Database related
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+AUTHENTICATION_BACKENDS = [
+    'backend.backends.EmailOrUsernameModelBackend',
+]
 
 DATABASES = {
     'default': {

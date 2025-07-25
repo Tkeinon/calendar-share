@@ -10,3 +10,10 @@ class CalendarUser(AbstractUser):
             self.email = self.email.lower()  # Enforce uniqueness in emails
         
         super().save(*args, **kwargs)
+
+    def as_dict(self):
+        return {
+            'id': self.id,
+            'username': self.username,
+            'email': self.email
+        }
