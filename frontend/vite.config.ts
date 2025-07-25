@@ -1,11 +1,15 @@
 import path from 'path';
-import { defineConfig } from 'vite'
-
+import { defineConfig } from 'vite';
 
 
 // https://vite.dev/config/
 export default defineConfig({
-    base: "/static/",
+    resolve: {
+        alias: {
+            src: path.resolve(process.cwd(), 'src'),
+        },
+    },
+    base: '/static/',
     build: {
         outDir: '../backend/static/vite',
         emptyOutDir: true,
@@ -16,4 +20,4 @@ export default defineConfig({
             },
         },
     },
-})
+});
