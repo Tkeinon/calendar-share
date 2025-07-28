@@ -1,0 +1,27 @@
+.container {
+    max-width: var(--content-area);
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    overflow: hidden;
+    padding-top: 200px;
+}
+
+.left-panel, .right-panel {
+    max-width: 500px;
+    min-height: 500px;
+    padding: 24px;
+}
+
+
+@media screen and (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .left-panel, .right-panel {
+        min-height: auto;
+    }
+}
