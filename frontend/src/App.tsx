@@ -1,8 +1,14 @@
-import './App.css'
+import { AuthProvider } from './context/AuthContext';
+import AuthenticationPage from 'src/pages/authentication/AuthenticationPage';
 
 
 function App() {
-  return <p>Hello world</p>
+    return <>
+        <AuthProvider>
+            <AuthenticationPage />
+        </AuthProvider>
+    </>;
 }
 
-export default App
+
+export default App;
