@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.views import View
 from django.views.decorators.csrf import csrf_protect
 from django.utils.decorators import method_decorator
 from calendar_auth.views.index import BaseView
@@ -28,3 +28,10 @@ class LoginView(BaseView):
         else:
             return JsonResponse({'error': 'Missing credentials'}, status=401)
         
+
+class UserInfoView(BaseView):
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return JsonResponse({'user': request.user.as_dict()})
+        
+        return JsonResponse({'user': {}})
