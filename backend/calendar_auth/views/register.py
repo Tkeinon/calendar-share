@@ -14,7 +14,7 @@ class RegisterView(BaseView):
         data = request.parsed_data
 
         username = data.get('username')
-        email = data.get('email', '')
+        email = data.get('email') or None  # Avoid empty strings that will hit unique contstraits
         password1 = data.get('password1')
         password2 = data.get('password2')
 
@@ -37,6 +37,7 @@ class RegisterView(BaseView):
         except ValidationError as e:
             return JsonResponse({'error': e.messages}, status=400)
         
+        print('Email: ', email)
         UserModel.objects.create_user(
             username=username,
             email=email,
