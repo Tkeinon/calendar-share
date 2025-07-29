@@ -44,3 +44,4 @@ class RegisterView(BaseView):
         )
 
         return JsonResponse({'message': 'Registration succesful'}, status=201)
+    

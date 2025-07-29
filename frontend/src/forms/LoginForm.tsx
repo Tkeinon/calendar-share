@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { LogIn } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 import axiosInstance from 'src/utils/axios';
 import styles from 'src/forms/forms.module.css';
@@ -18,6 +19,7 @@ const LoginForm = () => {
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [error, setError] = useState<string>('');
+    const navigate = useNavigate();
 
 
     const handleSubmit = () => {
@@ -31,6 +33,7 @@ const LoginForm = () => {
         ).then((response) => {
             const user: User = response?.data?.user;
             setUser(user);
+            navigate('/dashboard');
         }).catch((error) => {
             const errorMsg = error.response?.data?.error;
             setError(errorMsg || 'Unknown error');
