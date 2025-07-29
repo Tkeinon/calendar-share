@@ -15,6 +15,12 @@
     padding: 24px;
 }
 
+.footer {
+    cursor: pointer;
+    border-top: 1px solid var(--baby-blue);
+    margin-top: 32px;
+    padding-top: 16px;
+}
 
 @media screen and (max-width: 768px) {
     .container {
