@@ -21,23 +21,27 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 
 const AuthProvider = ({ children }: {children: React.ReactNode }) => {
+    const [inited, setInited] = useState<boolean>(false);
     const [user, setUser] = useState<User | null>(null);
     const navigate = useNavigate();
 
     useEffect(() => {
-        const checkAuth = () => {
-            axiosInstance.get(
-                '/api/user-info/'
-            ).then((response) => {
-                if (Object.keys(response?.data?.user).length) {
-                    setUser(response?.data?.user);
-                    navigate('/dashboard');
-                }
-            });
-        };
-
-        checkAuth();
-    }, [navigate]);
+        if (!inited) {
+            const checkAuth = () => {
+                axiosInstance.get(
+                    '/api/user-info/'
+                ).then((response) => {
+                    if (Object.keys(response?.data?.user).length) {
+                        setUser(response?.data?.user);
+                        navigate('/dashboard');
+                    }
+                });
+            };
+    
+            checkAuth();
+            setInited(true);
+        }
+    }, [inited, navigate]);
 
     return <AuthContext.Provider value={{ user, setUser }}>
         {children}

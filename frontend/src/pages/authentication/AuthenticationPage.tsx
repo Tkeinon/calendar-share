@@ -8,7 +8,8 @@ const AuthenticationPage = () => {
 
     return <div className={styles.container}>
         <div className={styles['left-panel']}>
-            <h1 className={styles.title}>Share Calendar</h1>
+            <h1 className={styles.title}>ShaCal</h1>
+            <h2>Share calendar</h2>
             <p className={styles.subtitle}>Plan. Schedule. Enjoy.</p>
         </div>
         <div className={styles['right-panel']}>

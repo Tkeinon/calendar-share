@@ -1,39 +1,11 @@
-import { LogOut } from 'lucide-react';
-
-import { Button } from 'src/components/buttons/Button';
-import { useAuth } from 'src/hooks/useAuth';
-import axiosInstance from 'src/utils/axios';
-
+import styles from 'src/pages/dashboard/dashboard.module.css';
 
 const Dashboard = () => {
-    const { setUser } = useAuth();
-
-
-    const handleSubmit = () => {
-        axiosInstance.post(
-            '/api/logout/', {}
-        ).then((response) => {  
-            setUser(null);
-        });
-    };
-
-
-    return <>
-        Hello!
-        <Button 
-            buttonClass='primary'
-            buttonText='Logout'
-            id='logoutButton'
-            Icon={LogOut}
-            iconAfterProps={{
-                'color': '#f9fafb',
-                'size': '16'
-            }}
-            iconAfter={true}
-            onClick={handleSubmit}
-            type='submit'
-        />
-    </>;
+    return <div className={styles.container}>
+        Hello! In the future this page will contain widget for upcoming events,
+        events added since last login, previous events, info if you are added
+        to a new calendar.
+    </div>;
 };
 
 

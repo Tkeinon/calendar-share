@@ -1,0 +1,39 @@
+.navbar {
+    width: 100%;
+    height: var(--topbar-height);
+}
+
+.inner-navbar {
+    max-width: var(--content-area);
+    margin: 0px auto 0px auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%
+}
+
+.links {
+    --link-gap: 62px;
+    display: flex;
+    gap: var(--link-gap);
+
+    @media screen and (max-width: 768px) {
+        --link-gap: 32px;
+    }
+}
+
+.brand {
+    padding: 10px;
+    border-right: 1px solid var(--indigo);
+}
+
+.brand-logo {
+    width: 40px;
+    height: 40px;
+    vertical-align: middle;
+}
+
+/* .right-navbar {
+    margin-left: auto
+} */
+
