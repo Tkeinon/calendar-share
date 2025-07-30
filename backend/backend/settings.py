@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'calendar_auth',
     'django_vite',
+    'calendar_app'
 ]
 
 MIDDLEWARE = [
