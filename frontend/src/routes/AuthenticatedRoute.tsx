@@ -4,7 +4,11 @@ import { useAuth } from 'src/hooks/useAuth';
 
 
 const AuthenticatedRoute = () => {
-    const { user } = useAuth();
+    const { isAuthResolved, user } = useAuth();
+
+    if (!isAuthResolved) {
+        return;
+    }
 
     return user
         ? <>
