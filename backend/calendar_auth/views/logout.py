@@ -2,7 +2,7 @@ from django.contrib.auth import logout
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_protect
 from django.utils.decorators import method_decorator
-from calendar_auth.views.index import BaseView
+from utils.base_view import BaseView
 
 
 @method_decorator(csrf_protect, name='dispatch')

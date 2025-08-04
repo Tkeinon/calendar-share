@@ -22,6 +22,26 @@ class Calendar(models.Model):
         verbose_name = 'Calendar'
         verbose_name_plural = 'Calendars'
 
+    def as_dict(self):
+        return {
+            'id': self.id,
+            'owner': self.owner.username,
+            'name': self.name,
+            'share_perms': self.get_perms(),
+        }
+    
+    def get_perms(self):
+        """
+        User gets automatically all permissions if they are the owner
+        of the calendar.
+        """
+        return {
+            'can_edit_events': True if self.owner else self.share_perms.can_edit_events,
+            'can_remove_events': True if self.owner else self.share_perms.can_remove_events,
+            'can_edit_calendar': True if self.owner else self.share_perms.can_edit_calendar,
+            'can_invite_users': True if self.owner else self.share_perms.can_invite_users,
+        }
+
 
 class CalendarPerm(models.Model):
     """
