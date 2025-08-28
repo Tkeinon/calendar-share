@@ -3,7 +3,7 @@ import AuthenticationPage from 'src/pages/authentication/AuthenticationPage';
 import PublicRoute from 'src/routes/PublicRoute';
 import AuthenticatedRoute from './AuthenticatedRoute';
 import Dashboard from 'src/pages/dashboard/Dashboard';
-import Calendar from 'src/pages/calendar/Calendar';
+import CalendarPage from 'src/pages/calendar/Calendar';
 
 
 const AppRoutes = () => <Routes>
@@ -14,7 +14,7 @@ const AppRoutes = () => <Routes>
 
     <Route element={<AuthenticatedRoute /> }>
         <Route path='/dashboard' element={<Dashboard />} />
-        <Route path='/calendar' element={<Calendar />} />
+        <Route path='/calendar' element={<CalendarPage />} />
     </Route>
 </Routes>;
 

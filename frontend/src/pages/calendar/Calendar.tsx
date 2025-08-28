@@ -1,52 +1,30 @@
-import axiosInstance from 'src/utils/axios';
-import styles from 'src/pages/calendar/calendar.module.css';
 import { useEffect, useState } from 'react';
+
 import { Button } from 'src/components/buttons/Button';
+import Calendar from 'src/components/calendar/Calendar';
 import { LabelInput, SelectInput } from 'src/components/inputs/Input';
 import Modal from 'src/components/modal/Modal';
+import styles from 'src/pages/calendar/calendar.module.css';
+import axiosInstance from 'src/utils/axios';
+import type {
+    CalendarType,
+    CalendarResponse
+} from 'src/types/calendarTypes';
 
 
-type CalendarPerm = {
-    'canEditCalendar': boolean,
-    'canEditEvents': boolean,
-    'canInviteUsers': boolean,
-    'canRemoveEvent': boolean,
-}
 
-type Calendar = {
-    'id': number,
-    'name': string,
-    'owner': string,
-    'sharePerms': CalendarPerm[],
-}
-
-type CalendarPermResp = {
-    'can_edit_calendar': boolean,
-    'can_edit_events': boolean,
-    'can_invite_users': boolean,
-    'can_remove_events': boolean,
-}
-
-type CalendarResp = {
-    'id': number,
-    'name': string,
-    'owner': string,
-    'share_perms': CalendarPermResp,
-}
-
-
-const Calendar = () => {
+const CalendarPage = () => {
     const [isModalOpen, setModalOpen] = useState<boolean>(false);
-    const [calendars, setCalendars] = useState<Calendar[]>([]);
+    const [calendars, setCalendars] = useState<CalendarType[]>([]);
     const [name, setName] = useState<string>('');
-    const [selectedCalendar, setSelectedCalendar] = useState<Calendar|null>(null);
+    const [selectedCalendar, setSelectedCalendar] = useState<CalendarType|null>(null);
 
     useEffect(() => {
         axiosInstance.get(
             '/api/calendar/',
         ).then((response) => {
             if (response?.data?.calendars) {
-                const cals = response?.data?.calendars.map((respCal: CalendarResp) => {
+                const cals = response?.data?.calendars.map((respCal: CalendarResponse) => {
                     return {
                         'id': respCal.id,
                         'name': respCal.name,
@@ -63,6 +41,7 @@ const Calendar = () => {
                 setCalendars(cals);
             }
         }).catch((error) => {
+            // TODO better error handling
             console.error('error', error);
         });
     }, []);
@@ -77,18 +56,48 @@ const Calendar = () => {
         ).then((response) => {
             setCalendars(response?.data?.calendars);
         }).catch((error) => {
+            // TODO better error handling
             console.error('error', error);
         });
     };
+
+    const options = [
+        {'value': '', 'label': 'Select calendar'}, ...calendars.map((calendar) => 
+            ({value: String(calendar.id), label: calendar.name}))
+    ];
+
     return <div className={styles.container}>
         {!calendars.length && <p>No calendars</p>}
-        <Button
-            buttonClass='primary'
-            buttonText='Create a calendar'
-            id='create-calendar'
-            onClick={() => setModalOpen(true)}
-            type='button'
-        />
+        <div className={styles.toolbar}>
+            <div className={styles['select']}>
+                <SelectInput
+                    labelText=''
+                    name='calendar'
+                    onChange={(calId) => {
+                        const newCal = calendars.find((cal) => {
+                            return Number(cal.id) === Number(calId);
+                        });
+
+                        if (newCal) {
+                            setSelectedCalendar(newCal);
+                        } else {
+                            setSelectedCalendar(null);
+                        }
+                    }}
+                    options={options}
+                    value={String(selectedCalendar?.id) || ''}
+                />
+            </div>
+            <div className={styles['create-button']}>
+                <Button
+                    buttonClass='primary'
+                    buttonText='Create a calendar'
+                    id='create-calendar'
+                    onClick={() => setModalOpen(true)}
+                    type='button'
+                />
+            </div>
+        </div>
         <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
             <h2>Create a calendar</h2>
             <LabelInput
@@ -107,28 +116,9 @@ const Calendar = () => {
                 type='submit'
             />
         </Modal>
-        <SelectInput
-            labelText='Calendar'
-            name='calendar'
-            onChange={(calId) => {
-                const newCal = calendars.find((cal) => {
-                    return Number(cal.id) === Number(calId);
-                });
-                console.log(newCal);
-                if (newCal) {
-                    setSelectedCalendar(newCal);
-                } else {
-                    setSelectedCalendar(null);
-                }
-            }}
-            options={[{'value': '', 'label': 'select cal'}, ...calendars.map((calendar) => ({value: String(calendar.id), label: calendar.name}))]}
-            value={String(selectedCalendar?.id) || ''}
-        />
-        <div>
-            {selectedCalendar && selectedCalendar.name}
-        </div>
+        {selectedCalendar && <Calendar calendar={selectedCalendar} />}
     </div>;
 };
 
 
-export default Calendar;
+export default CalendarPage;
