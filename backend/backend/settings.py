@@ -145,3 +145,9 @@ DJANGO_VITE = {
         'static_url_prefix': '' if DEBUG else STATIC_URL,  # Or your static URL
     }
 }
+
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass
