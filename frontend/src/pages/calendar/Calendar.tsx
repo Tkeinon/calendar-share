@@ -39,6 +39,7 @@ const CalendarPage = () => {
                 });
 
                 setCalendars(cals);
+                setSelectedCalendar(cals[0]);
             }
         }).catch((error) => {
             // TODO better error handling

@@ -62,7 +62,6 @@ const SelectInput = ({
             className={styles.input}
             id={name}
             onChange={(event) => {
-                console.log(event.target.value);
                 onChange(event.target.value);
             }}
             name={name}

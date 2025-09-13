@@ -1,6 +1,7 @@
+import { useState } from 'react';
 import { getMonthGrid } from 'src/utils/calendar';
 import type { CalendarType } from 'src/types/calendarTypes';
-import { useState } from 'react';
+import { Day } from 'src/components/calendar/Day';
 import styles from 'src/components/calendar/calendar.module.css';
 
 
@@ -50,20 +51,16 @@ const Calendar = ({calendar}: {calendar: CalendarType}) => {
             ))}
         </div>
         <div className={styles['calendar-grid']}>
-            {days.map((date, idx) => {
-            const isToday = date.toDateString() === today.toDateString();
-            const isCurrentMonth = date.getMonth() === currentMonth;
+            {days.map((date) => {
+                const isToday = date.toDateString() === today.toDateString();
+                const isCurrentMonth = date.getMonth() === currentMonth;
 
-            return (
-                <div
-                key={idx}
-                className={`${styles['calendar-cell']}
-                    ${isToday ? styles['today'] : ''} 
-                    ${!isCurrentMonth ? styles['outside'] : ''}`}
-                >
-                {date.getDate()}
-                </div>
-            );
+                return <Day 
+                    key={date.toISOString()}
+                    date={date}
+                    isCurrentMonth={isCurrentMonth}
+                    isToday={isToday}
+                />
             })}
         </div>
     </div>;
