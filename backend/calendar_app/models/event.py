@@ -45,3 +45,13 @@ class CalendarEvent(models.Model):
     def __str__(self):
         return f'{self.title} ({self.start:%Y-%m-%d %H:%M})'
     
+    def as_dict(self):
+        return {
+           'calendar': self.calendar.id,
+           'title': self.title,
+           'description': self.description,
+           'location': self.location,
+           'color': self.color,
+           'start': self.start.isoformat(),
+           'end': self.end.isoformat()
+        }

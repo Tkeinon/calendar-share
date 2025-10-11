@@ -37,7 +37,6 @@ class RegisterView(BaseView):
         except ValidationError as e:
             return JsonResponse({'error': e.messages}, status=400)
         
-        print('Email: ', email)
         UserModel.objects.create_user(
             username=username,
             email=email,

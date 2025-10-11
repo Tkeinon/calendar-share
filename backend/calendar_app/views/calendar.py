@@ -30,7 +30,10 @@ class CalendarView(BaseView):
         """
         owner = request.user
         data = request.parsed_data
-        name = data['name']
+        name = data.get('name', '')
+
+        if not name:
+            return JsonResponse({'error': 'Missing name'}, status=400)
 
         Calendar.objects.create(
             owner=owner,
