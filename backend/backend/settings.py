@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'calendar_auth',
     'django_vite',
+    'calendar_app'
 ]
 
 MIDDLEWARE = [
@@ -144,3 +145,9 @@ DJANGO_VITE = {
         'static_url_prefix': '' if DEBUG else STATIC_URL,  # Or your static URL
     }
 }
+
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass

@@ -1,0 +1,16 @@
+.container {
+    max-width: var(--content-area);
+    margin: auto;
+    padding-top: calc(var(--topbar-height));
+    padding-left: 10px;
+}
+
+.toolbar {
+    display: flex;
+    justify-content: flex-start;
+
+    .create-button {
+        padding-top: 3px;
+        margin-left: auto;
+    }
+}

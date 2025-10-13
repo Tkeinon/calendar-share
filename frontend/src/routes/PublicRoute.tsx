@@ -3,8 +3,12 @@ import { useAuth } from 'src/hooks/useAuth';
 
 
 const PublicRoute = () => {
-    const { user } = useAuth();
-    
+    const { isAuthResolved, user } = useAuth();
+
+    if (!isAuthResolved) {
+        return;
+    }
+
     return !user 
         ? <Outlet /> 
         : <Navigate to='/dashboard' replace />;
